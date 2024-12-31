@@ -13,11 +13,14 @@ const server = createServer(app);
 // Step 2: Set up cors
 // =============================
 
-app.use(cors({
-	origin: config.allowedOrigin,
-	methods: ['GET', 'POST', 'PUT', 'DELETE'],
-	credentials: true,
-}))
+const corsOptions = {
+    origin: ['*'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  };
+  
+  app.use(cors(corsOptions));
 
 // =============================
 // Step 3: Enable request parsing middleware
@@ -43,7 +46,7 @@ app.use('/api', mainRoute);
 
 
 app.get('/health-check', (req, res) => {
-	res.json({ status: 'ok', message: "Server is running.." });
+	res.json({ status: 'ok', message: "Server is running..", origin: config.allowedOrigin });
 });
 
 

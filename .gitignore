@@ -11,6 +11,8 @@ pids
 *.seed
 *.pid.lock
 
+vercel.*
+
 # Crash reports
 reports/
 *.pid
@@ -155,3 +157,4 @@ pids
 # Cypress files
 .cypress_cache/
 .cypress/
+.vercel
