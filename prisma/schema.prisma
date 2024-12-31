@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+ model User {
+ id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  name        String
+  about       String[]
+  profileUrl  String
+  devAreas    String[]
+  email       String   @unique
+  resumeLink  String
+  location    String
+
+  @@map("user")
+}
+
+model Certificate {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  organisation   String
+  cid            String
+  description    String
+  certificateUrl String
+
+  @@map("certificate")
+}
+
+model SkillGroup {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  groupName String
+  skills    String[]
+
+
+  @@map("skill_group")
+}
+
+model Education {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  degree        String
+  location      String
+  specialization String
+  duration      String
+  marks         Float
+
+
+  @@map("education")
+}
+
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  name         String
+  description  String
+  projectUrl   String
+  thumbnailUrl String
+  techStack    String[]
+  duration     Duration
+  githubUrl    String
+  type         ProjectType
+
+  @@map("project")
+}
+
+model WorkDomain {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  name        String
+  description String
+  type        WorkDomainType
+
+
+  @@map("work_domain")
+}
+
+model SocialLinks {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId // MongoDB ObjectId
+  name        String
+  url         String
+
+  @@map("social_links")
+}
+
+type Duration {
+  startDate String
+  endDate   String
+}
+
+
+enum ProjectType {
+  WEB
+  MOBILE
+  MACHINE_LEARNING
+}
+
+enum WorkDomainType {
+  HACKATHON
+  INTERNSHIP
+  JOB
+}
